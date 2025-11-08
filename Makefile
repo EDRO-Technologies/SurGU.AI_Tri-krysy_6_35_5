@@ -6,3 +6,7 @@ endif
 	@timestamp=$$(date +%Y%m%d%H%M%S); \
 	touch migrations/$${timestamp}_$(NAME).up.sql; \
     touch migrations/$${timestamp}_$(NAME).down.sql;
+
+.PHONY: fmt
+fmt:
+	docker run --rm -v "$(CURDIR):/app" -w /app golangci/golangci-lint:latest golangci-lint run --fix

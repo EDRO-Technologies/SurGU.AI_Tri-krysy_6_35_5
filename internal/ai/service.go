@@ -4,8 +4,9 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/goccy/go-json"
 	"net/http"
+
+	"github.com/goccy/go-json"
 )
 
 type Service struct {
@@ -20,7 +21,7 @@ func New(baseUrl string, httpClient httpClient) *Service {
 	}
 }
 
-func (s *Service) Answer(ctx context.Context, question string) (Response, error) {
+func (s *Service) Answer(_ context.Context, question string) (Response, error) {
 	body, err := json.Marshal(Request{
 		Question: question,
 	})

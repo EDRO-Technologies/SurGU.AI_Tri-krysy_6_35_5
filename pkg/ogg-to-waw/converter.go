@@ -24,7 +24,7 @@ func Convert(input []byte) ([]byte, error) {
 
 	go func() {
 		defer stdin.Close()
-		io.Copy(stdin, bytes.NewReader(input))
+		_, _ = io.Copy(stdin, bytes.NewReader(input))
 	}()
 
 	if err := cmd.Wait(); err != nil {

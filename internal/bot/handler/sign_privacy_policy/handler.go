@@ -3,6 +3,7 @@ package sign_privacy_policy
 import (
 	"context"
 	"fmt"
+
 	tele "gopkg.in/telebot.v4"
 )
 

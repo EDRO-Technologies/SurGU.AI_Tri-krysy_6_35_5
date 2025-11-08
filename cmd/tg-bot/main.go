@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"golang.org/x/sync/errgroup"
 	"log/slog"
 	"net/http"
 	"os"
@@ -17,6 +16,8 @@ import (
 	"surgu-ai-chat-bot/pkg/migrate"
 	"surgu-ai-chat-bot/pkg/postgres"
 	"time"
+
+	"golang.org/x/sync/errgroup"
 )
 
 func main() {
@@ -35,6 +36,7 @@ func realMain() error {
 	httpClient := &http.Client{Timeout: time.Second * 600}
 
 	b := bot.MustNew(
+		log,
 		cfg.TgBotToken,
 		cfg.WebAppUrl,
 		storage.New(postgres.MustNew(cfg.DSN)),
