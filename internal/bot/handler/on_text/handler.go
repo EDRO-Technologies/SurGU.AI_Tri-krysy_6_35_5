@@ -22,7 +22,7 @@ func New(bot *tele.Bot, ai aiService) *Handler {
 func (h *Handler) Handle(c tele.Context) error {
 	ctx := context.Background()
 
-	if err := c.Send("Ваш вопрос получен. Формирую ответ..."); err != nil {
+	if err := c.Send("⏳ Принял ваш запрос! Обрабатываю..."); err != nil {
 		return fmt.Errorf("c.Send: %w", err)
 	}
 
@@ -31,9 +31,10 @@ func (h *Handler) Handle(c tele.Context) error {
 		return fmt.Errorf("h.ai.Answer: %w", err)
 	}
 
+	answerText := fmt.Sprintf("✅ Готово! Вот что мне удалось найти:\n\n%s\n\nНужна ещё помощь? Просто напишите новый запрос!", answer.Answer)
 	if len(answer.Files) == 0 {
-		return c.Send(answer.Answer)
+		return c.Send(answerText)
 	}
 
-	return c.Send(answer.Answer, get_files_markup.GetMarkup(answer.Files))
+	return c.Send(answerText, get_files_markup.GetMarkup(answer.Files))
 }

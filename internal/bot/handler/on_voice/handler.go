@@ -32,7 +32,7 @@ func (h *Handler) Handle(c tele.Context) error {
 		return nil
 	}
 
-	if err := c.Send("Ваш вопрос получен. Формирую ответ..."); err != nil {
+	if err := c.Send("⏳ Принял ваш запрос! Обрабатываю..."); err != nil {
 		return fmt.Errorf("c.Send: %w", err)
 	}
 
@@ -62,7 +62,7 @@ func (h *Handler) Handle(c tele.Context) error {
 		return fmt.Errorf("h.ai.Answer: %w", err)
 	}
 
-	answerText := fmt.Sprintf("Вопрос: %s\n\n%s", text, answer.Answer)
+	answerText := fmt.Sprintf("✅ Готово! \nВаш вопрос: \"%s\"\n\nВот что мне удалось найти:\n\n%s\n\nНужна ещё помощь? Просто напишите новый запрос!", text, answer.Answer)
 	if len(answer.Files) == 0 {
 		return c.Send(answerText)
 	}
